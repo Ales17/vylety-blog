@@ -4,6 +4,7 @@ import { getPayload } from 'payload'
 import config from '@/payload.config'
 import { getIdFromSlug } from 'lib/string-methods'
 import { getPostById } from 'lib/PostService'
+import SinglePost from '@/components/SinglePost'
 interface Props {
   params: Promise<{ slug: string }>
 }
@@ -26,6 +27,10 @@ export default async function Page({ params }: Props) {
     return <>Neplatný odkaz</>
   } else {
     const post = await getPostById(entityId)
-    return <>My post {JSON.stringify(post)}</>
+    return (
+      <>
+        <SinglePost post={post} />
+      </>
+    )
   }
 }

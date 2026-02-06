@@ -22,8 +22,11 @@ type Props = {
 
 type NodeTypes = DefaultNodeTypes
 
+import { headingConverter } from './converters/headingConverter'
+
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) => ({
   ...defaultConverters,
+  ...headingConverter,
 })
 
 export default function RichTextDefault(props: Props) {

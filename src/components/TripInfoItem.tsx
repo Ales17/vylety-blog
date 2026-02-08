@@ -24,12 +24,14 @@ const ConditionalWrapper = ({ children, href }: ConditionalWrapperProps) => {
 }
 
 export default function TripInfoItem({ icon, label, title = '', href }: Props) {
-  let className = `${href ? 'hover:bg-slate-200' : ''} flex bg-slate-100 px-3 py-1.5 rounded-md gap-x-2 items-center transition-colors`
+  let className = `${href ? 'hover:bg-slate-200' : ''} flex 
+  bg-slate-100 px-3 py-1.5 rounded-md gap-x-2 
+  items-center transition-colors border border-slate-200`
   return (
     <li title={title}>
       <ConditionalWrapper href={href}>
         <div className={className}>
-          {icon}
+          <span className="text-slate-500">{icon}</span>
           <span>{label}</span> {href && <ExternalLinkIcon size={16} />}
         </div>
       </ConditionalWrapper>

@@ -2,15 +2,9 @@ import { Post } from '@/payload-types'
 import RichTextDefault from './RichTextDefault'
 import { MapIcon, Calendar1Icon, FootprintsIcon } from 'lucide-react'
 import TripInfoItem from './TripInfoItem'
-
+import { formatDate } from 'lib/string-methods'
 interface Props {
   post: Post
-}
-
-const formatDate = (date: any) => {
-  const dateParsed = Date.parse(date)
-  const formatter = new Intl.DateTimeFormat('cs-CZ', { dateStyle: 'long' })
-  return formatter.format(dateParsed)
 }
 
 export default function SinglePost({ post }: Props) {

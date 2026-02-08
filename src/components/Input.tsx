@@ -1,13 +1,8 @@
-interface Props {
-  placeholder?: string
-  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined
-  type: 'text' | 'email' | 'password'
-  required?: boolean
-  name: string
+import { InputHTMLAttributes } from 'react'
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
 }
-export default function Input(props: Props) {
-  const { type, onChange, placeholder, name, label } = props
+export default function Input({ type, onChange, placeholder, name, label, autoComplete }: Props) {
   return (
     <div>
       {!label ? '' : <label htmlFor={name}>{label}</label>}
@@ -17,6 +12,7 @@ export default function Input(props: Props) {
         onChange={onChange ? onChange : undefined}
         placeholder={placeholder ? placeholder : undefined}
         name={name}
+        autoComplete={autoComplete}
       />
     </div>
   )

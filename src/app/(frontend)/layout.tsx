@@ -2,7 +2,7 @@ import React from 'react'
 import './styles.css'
 import Nav from '@/components/Nav'
 export const metadata = {
-  title: '%s | Výletník',
+  title: 'Výletník',
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
@@ -12,7 +12,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
     <html lang="cs">
       <body>
         <Nav />
-        <main>{children}</main>
+        <main className="max-w-4xl mx-auto">{children}</main>
       </body>
     </html>
   )

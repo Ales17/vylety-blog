@@ -1,21 +1,43 @@
 import { logout } from 'lib/fe-auth'
 import Button from './Button'
+import { LogOutIcon, HouseIcon } from 'lucide-react'
+
 import Link from 'next/link'
 export default function Nav() {
   return (
-    <nav className=" bg-gray-100">
+    <div className=" bg-slate-100 border-b border-slate-200">
       <div className="flex flex-col text-center">
-        <div className="text-2xl p-2">Výlety</div>
-        <Link className="p-2 hover:bg-gray-200" href={'/'}>
-          Domů
-        </Link>
-        <button className="p-2 hover:bg-gray-200 cursor-pointer" onClick={logout}>
-          Odhlásit se
-        </button>
+        <header className="text-2xl p-2">Výlety</header>
+        <nav>
+          <ul className="flex md:justify-center w-full">
+            <li className="flex grow md:grow-0 ">
+              <Link
+                className="h-full w-full flex py-4 px-2 gap-x-2   hover:bg-slate-200 transition-colors justify-center"
+                href={'/'}
+              >
+                <span className="text-slate-500">
+                  <HouseIcon />
+                </span>
+                <span>Domů</span>
+              </Link>
+            </li>
+            <li className="flex grow md:grow-0">
+              <button
+                className="h-full w-full flex py-4 px-2 gap-x-2   hover:bg-slate-200 cursor-pointer transition-colors justify-center"
+                onClick={logout}
+              >
+                <span className="text-slate-500">
+                  <LogOutIcon />
+                </span>
+                <span>Odhlásit se</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
         {/* <div>
           <Button onClick={logout} label="Odhlásit se" variant="primary" />
         </div> */}
       </div>
-    </nav>
+    </div>
   )
 }

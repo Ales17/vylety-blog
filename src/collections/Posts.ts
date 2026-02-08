@@ -13,10 +13,12 @@ export const Posts: CollectionConfig = {
     {
       name: 'title',
       type: 'text',
+      required: true,
     },
     {
       name: 'mapsLink',
       type: 'text',
+      required: true,
     },
     {
       name: 'eventDate',

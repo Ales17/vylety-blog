@@ -10,3 +10,9 @@ export function slugify(title: string) {
 export const getIdFromSlug = (slug: string): string | null => {
   return slug.match(/^\d+/)?.[0] ?? null
 }
+
+export const formatDate = (date: any) => {
+  const dateParsed = Date.parse(date)
+  const formatter = new Intl.DateTimeFormat('cs-CZ', { dateStyle: 'long' })
+  return formatter.format(dateParsed)
+}

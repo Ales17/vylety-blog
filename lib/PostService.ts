@@ -5,14 +5,14 @@ import { Post } from '@/payload-types'
 const payloadConfig = await config
 const payload = await getPayload({ config: payloadConfig })
 
-export async function getPosts() {
+export async function getPosts({ limit = 10, page }: { limit?: number; page: number }) {
   const result = await payload.find({
     collection: 'posts', // required
-    page: 1,
-    limit: 10,
-    pagination: false, // If you want to disable pagination count, etc.
+    page: page,
+    limit: limit,
+    pagination: true, // If you want to disable pagination count, etc.
     where: {}, // pass a `where` query here
-    sort: '-title',
+    sort: '-createdAt',
   })
   return result
 }

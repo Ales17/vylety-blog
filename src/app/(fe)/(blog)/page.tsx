@@ -5,7 +5,6 @@ import { headers as nextHeaders } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { getPayload } from 'payload'
 import config from '@/payload.config'
-import './styles.css'
 import PostGrid from '@/components/PostGrid'
 import { getPosts } from 'lib/PostService'
 

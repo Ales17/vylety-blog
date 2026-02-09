@@ -1,5 +1,5 @@
 import React from 'react'
-import './styles.css'
+import '../styles.css'
 import Nav from '@/components/Nav'
 export const metadata = {
   title: 'Výletník',

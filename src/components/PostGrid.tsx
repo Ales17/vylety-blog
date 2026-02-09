@@ -1,7 +1,6 @@
 import { PaginatedDocs } from 'payload'
 import { Post } from '@/payload-types'
-import Link from 'next/link'
-import { RichText } from '@payloadcms/richtext-lexical/react'
+import { ArrowRightIcon } from 'lucide-react'
 import { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 import RichTextDefault from './RichTextDefault'
 import LinkButton from './LinkButton'
@@ -19,11 +18,18 @@ export default function PostGrid(props: Props) {
       {docs.map((doc) => {
         const data = doc.content as DefaultTypedEditorState
         return (
-          <div key={doc.id} className="border-2 rounded border-blue-500 p-2 md:p-4">
-            <h2>{doc.title}</h2>
-            <RichTextDefault data={data} />
+          <div
+            key={doc.id}
+            className="border rounded-3xl bg-white border-slate-200 p-2 md:p-4 flex flex-col gap-y-1"
+          >
+            <h2 className="text-2xl">{doc.title}</h2>
+            <RichTextDefault className="line-clamp-2" data={data} />
             <div>
-              <LinkButton href={`/posts/${doc.id}-${doc.slug}`} label={'Detail'} />
+              <LinkButton
+                href={`/posts/${doc.id}-${doc.slug}`}
+                label={'Přečíst'}
+                icon={<ArrowRightIcon />}
+              />
             </div>
           </div>
         )

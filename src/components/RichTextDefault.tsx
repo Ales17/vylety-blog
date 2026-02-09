@@ -29,11 +29,6 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
   ...headingConverter,
 })
 
-export default function RichTextDefault(props: Props) {
-  const { data, ...rest } = props
-  return (
-    <div className="prose">
-      <RichText converters={jsxConverters} data={data} />
-    </div>
-  )
+export default function RichTextDefault({ data, className, ...rest }: Props) {
+  return <RichText className={className} converters={jsxConverters} data={data} />
 }

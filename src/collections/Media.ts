@@ -12,5 +12,12 @@ export const Media: CollectionConfig = {
       required: false,
     },
   ],
-  upload: true,
+  upload: {
+    formatOptions: {
+      format: 'webp',
+      options: {
+        quality: 80,
+      },
+    },
+  },
 }

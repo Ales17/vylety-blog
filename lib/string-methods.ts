@@ -16,3 +16,8 @@ export const formatDate = (date: any) => {
   const formatter = new Intl.DateTimeFormat('cs-CZ', { dateStyle: 'long' })
   return formatter.format(dateParsed)
 }
+
+export const formatUrl = (url: string) => {
+  const urlParsed = URL.parse(url)
+  return urlParsed?.host
+}

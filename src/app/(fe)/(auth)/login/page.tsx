@@ -20,7 +20,7 @@ export default function Login() {
           placeholder="email@email.cz"
           label="E-mail"
         />
-        <Input type="password" name="password" id="password" placeholder="******" label="Heslo" />
+        {/* <Input type="password" name="password" id="password" placeholder="******" label="Heslo" /> */}
         <Button label={'Přihlásit se'} variant="primary" />
         <p aria-live="polite">{state?.message}</p>
       </form>

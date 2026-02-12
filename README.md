@@ -1,67 +1,65 @@
-# Payload Blank Template
+# Vylety - Blog Platform
 
-This template comes configured with the bare minimum to get started on anything you need.
+A lightweight, high-performance blog built with **Next.js 15** and **Payload CMS 3.0**. This application is designed for a curated reading experience where access is managed strictly by the administrator.
 
-## Quick start
+---
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+## Project Logic & Authentication
 
-## Quick Start - local setup
+This blog implements a **Passwordless Magic Link** system by leveraging Payload CMS's internal password recovery workflow. To ensure a private and secure environment, the following rules apply:
 
-To spin up this template locally, follow these steps:
+* **No Public Registration:** There is no sign-up form. All readers must be manually created by an admin in the Payload dashboard.
+* **Pre-authorized Access:** Only existing users can request a login link.
+* **Authentication Workflow:**
+    1. A user enters their email address.
+    2. The system triggers the `forgotPassword` method, which generates a secure, time-sensitive token.
+    3. An email is sent to the user containing a link to `/login/[token]`.
+    4. Upon clicking, the system utilizes the `resetPassword` functionality to verify the token and establish a valid session cookie, effectively logging the user in without a permanent password.
 
-### Clone
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
 
-### Development
+---
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+## Environment Variables
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+Create a `.env` file in the root directory and populate it with the following variables.
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+### Payload CMS
+| Variable | Description | Example |
+| :--- | :--- | :--- |
+| **`PAYLOAD_SECRET`** | Secret string used to secure cookies and JWTs. | `your-random-secret` |
+| **`ADMIN_EMAIL`** | The email address of the primary administrator. | `admin@example.com` |
 
-#### Docker (Optional)
+### Database (PostgreSQL)
+| Variable | Description | Example |
+| :--- | :--- | :--- |
+| **`DB_HOST`** | Database host | `localhost` |
+| **`DB_PORT`** | Port the database is listening on. | `5432` |
+| **`DB_USER`** | Database username. | `postgres` |
+| **`DB_PASS`** | Database password. | `postgres` |
+| **`DB_NAME`** | The name of the database. | `postgres` |
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+### General Settings
+| Variable | Description | Example |
+| :--- | :--- | :--- |
+| **`WEBSITE_TITLE`** | The display name of the blog. | `Example.cz` |
+| **`WEBSITE_URL`** | The full base URL of the application. | `http://localhost:3000` |
 
-To do so, follow these steps:
+### Email Configuration (SMTP)
+| Variable | Description | Example |
+| :--- | :--- | :--- |
+| **`SMTP_HOST`** | SMTP server hostname. | `smtp.example.com` |
+| **`SMTP_PORT`** | SMTP server port. | `587` |
+| **`SMTP_USER`** | The username for the SMTP account. | `info@example.com` |
+| **`SMTP_PASS`** | The password for the SMTP account. | `your_password` |
+| **`SMTP_FROM_ADDRESS`** | The email address used as the sender. | `info@example.com` |
+| **`SMTP_FROM_NAME`** | The name displayed in the "From" field. | `Example.cz` |
 
-- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+---
 
-## How it works
+## Development Setup
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
-
-### Collections
-
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
-
-- #### Users (Authentication)
-
-  Users are auth-enabled collections that have access to the admin panel.
-
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
-
-- #### Media
-
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
-
-### Docker
-
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
-
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
-
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
-
-## Questions
-
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+### 1. Database
+The database runs in a Docker container. To start only the database:
+```bash
+docker compose up db -d

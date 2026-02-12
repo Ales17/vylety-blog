@@ -59,13 +59,13 @@ export async function login(initialState: any, formData: FormData) {
   }
 
   if (!token) {
-    // Vrátíme stejnou hlášku pro neexistující uživatele i pro chyby - bezpečnostní standard
+    // Same message for non-existens users and errors - security standard 
     return { message: 'Pokud u nás máte účet, e-mail dorazí během chvíle.' }
   }
 
 
   try {
-    const prettyUrl = formatUrl(webUrl) || webUrl; // Fallback na celou URL, pokud formátování selže
+    const prettyUrl = formatUrl(webUrl) || webUrl; // Full URL fallback if formatting fails 
 
     await payload.sendEmail({
       to: validatedFields.data.email,

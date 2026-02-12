@@ -6,17 +6,39 @@ A lightweight, high-performance blog built with **Next.js 15** and **Payload CMS
 
 ## Project Logic & Authentication
 
-This blog implements a **Passwordless Magic Link** system by leveraging Payload CMS's internal password recovery workflow. To ensure a private and secure environment, the following rules apply:
+This blog implements a **Magic Link** authentication system. Users don't need passwords—they receive a secure login link via email.
 
-* **No Public Registration:** There is no sign-up form. All readers must be manually created by an admin in the Payload dashboard.
-* **Pre-authorized Access:** Only existing users can request a login link.
-* **Authentication Workflow:**
-    1. A user enters their email address.
-    2. The system triggers the `forgotPassword` method, which generates a secure, time-sensitive token.
-    3. An email is sent to the user containing a link to `/login/[token]`.
-    4. Upon clicking, the system utilizes the `resetPassword` functionality to verify the token and establish a valid session cookie, effectively logging the user in without a permanent password.
+### Current Implementation: Magic Link
 
+**How it works:**
 
+1. User visits the login page and enters their email
+2. System sends an email with a magic link (valid for a limited time)
+3. User clicks the link and is automatically logged in
+4. Session is created via secure cookie
+
+**Key Features:**
+
+- ✅ No passwords to remember or manage
+- ✅ Secure token-based authentication
+- ✅ Time-limited login links
+- ✅ Admin-controlled user access (no public registration)
+
+### Access Control
+
+- **No Public Registration:** Users cannot sign themselves up. An admin must create accounts in the Payload dashboard.
+- **Email-Based Access:** Only users with registered email addresses can request a login link.
+- **Admin Only:** Only administrators can create, edit, or delete user accounts.
+
+### Alternative: Password Authentication (Configurable)
+
+Password-based authentication can be enabled via environment variable for demo and testing purposes.
+
+When enabled:
+
+- Users log in with email and password instead of magic links
+- Passwords are managed in the Payload dashboard
+- Useful for demos, testing, and future implementations
 
 ---
 
@@ -24,42 +46,50 @@ This blog implements a **Passwordless Magic Link** system by leveraging Payload 
 
 Create a `.env` file in the root directory and populate it with the following variables.
 
-### Payload CMS
-| Variable | Description | Example |
-| :--- | :--- | :--- |
-| **`PAYLOAD_SECRET`** | Secret string used to secure cookies and JWTs. | `your-random-secret` |
-| **`ADMIN_EMAIL`** | The email address of the primary administrator. | `admin@example.com` |
+### Next
+
+| Variable                      | Description                                                                        |
+| :---------------------------- | :--------------------------------------------------------------------------------- |
+| **`PAYLOAD_SECRET`**          | Secret string used to secure cookies and JWTs.                                     |
+| **`ADMIN_EMAIL`**             | The email address of the primary administrator.                                    |
+| **`NEXT_PUBLIC_AUTH_METHOD`** | Authentication method: `magic-link` (default, secure) or `password` (demo/testing) |
 
 ### Database (PostgreSQL)
-| Variable | Description | Example |
-| :--- | :--- | :--- |
-| **`DB_HOST`** | Database host | `localhost` |
-| **`DB_PORT`** | Port the database is listening on. | `5432` |
-| **`DB_USER`** | Database username. | `postgres` |
-| **`DB_PASS`** | Database password. | `postgres` |
-| **`DB_NAME`** | The name of the database. | `postgres` |
+
+| Variable      | Description                        | Example     |
+| :------------ | :--------------------------------- | :---------- |
+| **`DB_HOST`** | Database host                      | `localhost` |
+| **`DB_PORT`** | Port the database is listening on. | `5432`      |
+| **`DB_USER`** | Database username.                 | `postgres`  |
+| **`DB_PASS`** | Database password.                 | `postgres`  |
+| **`DB_NAME`** | The name of the database.          | `postgres`  |
 
 ### General Settings
-| Variable | Description | Example |
-| :--- | :--- | :--- |
-| **`WEBSITE_TITLE`** | The display name of the blog. | `Example.cz` |
-| **`WEBSITE_URL`** | The full base URL of the application. | `http://localhost:3000` |
+
+| Variable            | Description                           | Example                 |
+| :------------------ | :------------------------------------ | :---------------------- |
+| **`WEBSITE_TITLE`** | The display name of the blog.         | `Example.cz`            |
+| **`WEBSITE_URL`**   | The full base URL of the application. | `http://localhost:3000` |
 
 ### Email Configuration (SMTP)
-| Variable | Description | Example |
-| :--- | :--- | :--- |
-| **`SMTP_HOST`** | SMTP server hostname. | `smtp.example.com` |
-| **`SMTP_PORT`** | SMTP server port. | `587` |
-| **`SMTP_USER`** | The username for the SMTP account. | `info@example.com` |
-| **`SMTP_PASS`** | The password for the SMTP account. | `your_password` |
-| **`SMTP_FROM_ADDRESS`** | The email address used as the sender. | `info@example.com` |
-| **`SMTP_FROM_NAME`** | The name displayed in the "From" field. | `Example.cz` |
+
+| Variable                | Description                             | Example            |
+| :---------------------- | :-------------------------------------- | :----------------- |
+| **`SMTP_HOST`**         | SMTP server hostname.                   | `smtp.example.com` |
+| **`SMTP_PORT`**         | SMTP server port.                       | `587`              |
+| **`SMTP_USER`**         | The username for the SMTP account.      | `info@example.com` |
+| **`SMTP_PASS`**         | The password for the SMTP account.      | `your_password`    |
+| **`SMTP_FROM_ADDRESS`** | The email address used as the sender.   | `info@example.com` |
+| **`SMTP_FROM_NAME`**    | The name displayed in the "From" field. | `Example.cz`       |
 
 ---
 
 ## Development Setup
 
 ### 1. Database
+
 The database runs in a Docker container. To start only the database:
+
 ```bash
 docker compose up db -d
+```

@@ -3,8 +3,9 @@ import { magicLinkLogin, passwordLogin } from 'lib/fe-auth'
 import Input from '@/components/Input'
 import Button from '@/components/Button'
 import { useActionState } from 'react'
+import { FormLoginState } from '@/types/FormLoginState'
 
-const initialState = {
+const initialState: FormLoginState = {
   message: '',
 }
 

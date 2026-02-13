@@ -28,7 +28,7 @@ export default async function HomePage({ searchParams }: Props) {
   const pageParam = (await searchParams).page
   const currentPage = PageParamSchema.parse(pageParam)
 
-  let posts = await getPosts({
+  const posts = await getPosts({
     page: currentPage,
     limit: 1,
   })

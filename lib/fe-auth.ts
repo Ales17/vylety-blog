@@ -68,7 +68,7 @@ export async function passwordLogin(initialState: FormLoginState, formData: Form
   return { message: 'Přihlášení se nezdařilo' }
 }
 
-export async function magicLinkLogin(initialState: any, formData: FormData) {
+export async function magicLinkLogin(initialState: FormLoginState, formData: FormData) {
   const rawData = {
     email: String(formData.get('email')),
   }
@@ -77,7 +77,6 @@ export async function magicLinkLogin(initialState: any, formData: FormData) {
     email: z.email(),
   })
 
-  let result
   let token
   const validatedFields = schema.safeParse({
     email: rawData.email,

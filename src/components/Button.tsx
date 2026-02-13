@@ -6,7 +6,7 @@ interface Props extends React.DetailedHTMLProps<
   variant?: 'primary' | 'secondary' | 'danger'
 }
 
-let colors: Record<string, string> = {
+const colors: Record<string, string> = {
   primary: 'bg-slate-900 text-white  hover:bg-slate-800 active:scale-95',
   secondary: 'text-white bg-amber-400',
 }

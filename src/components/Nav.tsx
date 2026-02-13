@@ -1,5 +1,4 @@
 import { logout } from 'lib/fe-auth'
-import Button from './Button'
 import { LogOutIcon, HouseIcon } from 'lucide-react'
 
 import Link from 'next/link'
@@ -30,9 +29,6 @@ export default function Nav() {
             </li>
           </ul>
         </nav>
-        {/* <div>
-          <Button onClick={logout} label="Odhlásit se" variant="primary" />
-        </div> */}
       </div>
     </div>
   )

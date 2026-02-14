@@ -14,7 +14,7 @@ import { Posts } from './collections/Posts'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-const smtpUser = 
+const smtpUser = process.env.SMTP_USER
 const smtpPass = process.env.SMTP_PASS
 const smtpFromAddress = process.env.SMTP_FROM_ADDRESS
 const smtpFromName = process.env.SMTP_FROM_NAME
